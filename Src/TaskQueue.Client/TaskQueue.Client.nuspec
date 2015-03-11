@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>TaskQueue.Client</id>
+        <title>TaskQueue Client</title>
+        <version>1.0.0</version>
+        <authors>TaskQueue</authors>
+        <projectUrl>http://taskqueue.io</projectUrl>
+        <description>the official TaskQueue client for .Net.</description>
+    </metadata>
+    <files>
+        <file src="bin\Release\*.dll" target="lib" />
+    </files>
+</package>
