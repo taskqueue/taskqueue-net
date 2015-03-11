@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{ABF22FEF
 	ProjectSection(SolutionItems) = preProject
 		..\mono-build.proj = ..\mono-build.proj
 		..\mono-build.sh = ..\mono-build.sh
+		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskQueue.Client", "TaskQueue.Client\TaskQueue.Client.csproj", "{6B7D7344-87CA-432C-BC31-85873C229F8D}"

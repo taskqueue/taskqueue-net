@@ -51,7 +51,7 @@ namespace TaskQueue.Clients
             {
                 Method = HttpMethod.Post,
                 Content = new StringContent(task.Content.ToString(), Encoding.UTF8, "application/json"),
-                RequestUri = new Uri(_endpoint, "tasks")
+                RequestUri = new System.Uri(_endpoint, "tasks")
             };
 
             if (String.IsNullOrWhiteSpace(task.Endpoint) == false)
