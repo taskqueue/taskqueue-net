@@ -54,9 +54,7 @@
 
     <Target Name="Publish" DependsOnTargets="Package">
 
-        <Exec Condition="'$(ShouldPublish)' == 'nuget'" Command='echo published with $(NugetKey)' />
-
-        <!-- <Exec Condition="'$(ShouldPublish)' == 'nuget'" Command='"$(Root)Src\.nuget\NuGet.exe" push "$(Root)Build\TaskQueue.Client.$(Version).nupkg" $(NugetKey)' /> -->
+        <Exec Condition="'$(ShouldPublish)' == 'nuget'" Command='"$(Root)Src\.nuget\NuGet.exe" push "$(Root)Build\TaskQueue.Client.$(Version).nupkg" $(NugetKey)' />
 
     </Target>
 
