@@ -28,7 +28,7 @@ var tasklets = Tasklet.From("Hello!")
 You can also create a tasklet from an object and it will be automatically serialized to JSON.
 
 ```csharp
-var tasklets = Tasklet.From(new SayHelloTask { Text = "Hello!" })
+var tasklets = Tasklet.From(new Message { Text = "Hello!" })
                 .CallbackEndpoint("http://requestb.in/1i8i5zu1")
                 .Build();
 
