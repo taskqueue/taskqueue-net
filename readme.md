@@ -1,5 +1,5 @@
 # TaskQueue Client
-The official TaskQueue client for .Net.
+The official [TaskQueue](http://taskqueue.io/) client for .Net.
 
 ## Supported Platforms
 - .NET Framework 4.5
