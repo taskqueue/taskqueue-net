@@ -13,31 +13,39 @@ The official TaskQueue client for .Net.
 
 ## Usage
 
-### Sending strings
-```csharp
-// define your API key
-var apiKey = new Guid("00000000-0000-0000-0000-000000000000");
+`Tasklets` are a single messages that will be routed by TaskQueue.
 
-using (var queue = new TaskQueueClient(new Uri("http://api.taskqueue.io"),apiKey))
-{
-    queue.EnqueueAsync("Hello!").Wait();
-}
+### String tasklets
+You can create a tasklet from a string.
+
+```csharp
+var tasklets = Tasklet.From("Hello!")
+                .CallbackEndpoint("http://requestb.in/1i8i5zu1")
+                .Build();
 ```
 
-### Sending objects
-You can also send objects and they will be automatically serialized.
+### Object tasklets
+You can also create a tasklet from an object and it will be automatically serialized to JSON.
 
 ```csharp
-// define your API key
-var apiKey = new Guid("00000000-0000-0000-0000-000000000000");
-
-using (var queue = new TaskQueueClient(new Uri("http://api.taskqueue.io"),apiKey))
-{
-    queue.EnqueueAsync(new Message{ Text = "Hello!" }).Wait();
-}
+var tasklets = Tasklet.From(new SayHelloTask { Text = "Hello!" })
+                .CallbackEndpoint("http://requestb.in/1i8i5zu1")
+                .Build();
 
 public class Message
 {
     public string Text { get; set; }
+}
+```
+
+### Publishing a Task
+Once your tasklet is ready to send, simply add it to your task queue.
+
+```csharp
+var apiKey = new Guid("00000000-0000-0000-0000-000000000000");
+
+using (var queue = new TaskQueueClient(new Uri("http://api.taskqueue.io"),apiKey))
+{
+    queue.EnqueueAsync(tasklet).Wait();
 }
 ```
