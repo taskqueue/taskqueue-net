@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace TaskQueue.Clients
+namespace TaskQueue.Client
 {
     public sealed class TaskletBuilder
     {

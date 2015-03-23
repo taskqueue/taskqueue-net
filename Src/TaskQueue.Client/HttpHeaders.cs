@@ -1,4 +1,4 @@
-﻿namespace TaskQueue.Clients
+﻿namespace TaskQueue.Client
 {
     internal static class HttpHeaders
     {

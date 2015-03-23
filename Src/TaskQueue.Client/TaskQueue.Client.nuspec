@@ -6,7 +6,7 @@
         <version>1.0.0</version>
         <authors>TaskQueue</authors>
         <projectUrl>http://taskqueue.io</projectUrl>
-        <description>the official TaskQueue client for .Net.</description>
+        <description>The official TaskQueue client for .Net.</description>
     </metadata>
     <files>
         <file src="bin\Release\*.dll" target="lib" />

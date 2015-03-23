@@ -8,7 +8,7 @@
     <ProjectGuid>{6B7D7344-87CA-432C-BC31-85873C229F8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaskQueue.Clients</RootNamespace>
+    <RootNamespace>TaskQueue.Client</RootNamespace>
     <AssemblyName>TaskQueue.Client</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
