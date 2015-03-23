@@ -18,6 +18,13 @@ namespace TaskQueue.Client
         /// </summary>
         /// <param name="endpoint">The API endpoint.</param>
         /// <param name="apiKey">The API key.</param>
+        public TaskQueueClient(string endpoint, Guid apiKey) : this(new Uri(endpoint), apiKey) { }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="endpoint">The API endpoint.</param>
+        /// <param name="apiKey">The API key.</param>
         public TaskQueueClient(Uri endpoint, Guid apiKey)
         {
             _endpoint = endpoint;
@@ -35,7 +42,6 @@ namespace TaskQueue.Client
         /// </summary>
         /// <param name="tasklet">The tasklet to enqueue.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The ID that was generated for the given tasklet.</returns>
         public async Task EnqueueAsync(Tasklet tasklet, CancellationToken cancellationToken = default(CancellationToken))
         {
             var message = new HttpRequestMessage
@@ -52,6 +58,15 @@ namespace TaskQueue.Client
 
             var response = await _httpClient.SendAsync(message, cancellationToken);
             response.EnsureSuccessStatusCode();
+        }
+
+        /// <summary>
+        /// Enqueue a given list of tasks.
+        /// </summary>
+        /// <param name="tasklets">The tasks to enqueue.</param>
+        public Task EnqueueAsync(params Tasklet[] tasklets)
+        {
+            return EnqueueAsync(tasklets, CancellationToken.None);
         }
 
         /// <summary>
