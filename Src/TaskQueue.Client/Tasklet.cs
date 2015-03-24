@@ -1,21 +1,27 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TaskQueue.Client
 {
     public sealed class Tasklet
     {
-        readonly string _endpoint;
-        readonly JObject _content;
+        readonly IDictionary<string, string> _headers;
+        readonly string _content;
+        readonly string _contentType;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="endpoint">The endpoint that the task queue should call with the payload.</param>
         /// <param name="content">The task payload.</param>
-        public Tasklet(string endpoint, JObject content)
+        /// <param name="contentType">The content type of the payload.</param>
+        /// <param name="headers">The headers to add to the request.</param>
+        internal Tasklet(string content, string contentType, IDictionary<string, string> headers)
         {
-            _endpoint = endpoint;
+            _headers = headers;
             _content = content;
+            _contentType = contentType;
         }
 
         /// <summary>
@@ -25,7 +31,7 @@ namespace TaskQueue.Client
         /// <returns>A tasklet building to continue building.</returns>
         public static TaskletBuilder From(object content)
         {
-            return new TaskletBuilder(content);
+            return From(JObject.Parse(JsonConvert.SerializeObject(content, Formatting.None)));
         }
 
         /// <summary>
@@ -35,31 +41,45 @@ namespace TaskQueue.Client
         /// <returns>A tasklet building to continue building.</returns>
         public static TaskletBuilder From(JObject content)
         {
-            return new TaskletBuilder(content);
+            if (content == null)
+            {
+                throw new ArgumentNullException("content");
+            }
+
+            return new TaskletBuilder(content.ToString(), "application/json");
         }
 
         /// <summary>
         /// Creates a Tasklet builder to configure the task.
         /// </summary>
         /// <param name="content">The content to create the tasklet with.</param>
+        /// <param name="contentType">The content type of the payload.</param>
         /// <returns>A tasklet building to continue building.</returns>
-        public static TaskletBuilder From(string content)
+        public static TaskletBuilder From(string content, string contentType)
         {
-            return new TaskletBuilder(content);
+            return new TaskletBuilder(content, contentType);
         }
 
         /// <summary>
-        /// Gets the endpoint.
+        /// Gets the headers for the request.
         /// </summary>
-        public string Endpoint
+        public IDictionary<string, string> Headers
         {
-            get { return _endpoint; }
+            get { return _headers; }
+        }
+
+        /// <summary>
+        /// Gets the content type.
+        /// </summary>
+        public string ContentType
+        {
+            get { return _contentType; }
         }
 
         /// <summary>
         /// Gets the content.
         /// </summary>
-        public JObject Content
+        public string Content
         {
             get { return _content; }
         }

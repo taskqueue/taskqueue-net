@@ -47,14 +47,11 @@ namespace TaskQueue.Client
             var message = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                Content = new StringContent(tasklet.Content.ToString(), Encoding.UTF8, "application/json"),
+                Content = new StringContent(tasklet.Content, Encoding.UTF8, tasklet.ContentType),
                 RequestUri = new Uri(_endpoint, "tasks")
             };
 
-            if (String.IsNullOrWhiteSpace(tasklet.Endpoint) == false)
-            {
-                message.Headers.Add(HttpHeaders.Endpoint, tasklet.Endpoint);
-            }
+            AddHeaders(message.Headers, tasklet.Headers);
 
             var response = await _httpClient.SendAsync(message, cancellationToken);
             response.EnsureSuccessStatusCode();
@@ -101,14 +98,24 @@ namespace TaskQueue.Client
         /// <returns>The HTTP content for the given tasklet.</returns>
         static HttpContent CreateTaskletContent(Tasklet tasklet)
         {
-            var content = new StringContent(tasklet.Content.ToString(), Encoding.UTF8, "application/json");
+            var content = new StringContent(tasklet.Content, Encoding.UTF8, tasklet.ContentType);
 
-            if (String.IsNullOrWhiteSpace(tasklet.Endpoint) == false)
-            {
-                content.Headers.Add(HttpHeaders.Endpoint, tasklet.Endpoint);
-            }
+            AddHeaders(content.Headers, tasklet.Headers);
 
             return content;
+        }
+
+        /// <summary>
+        /// Add the list of headers to the request headers collection.
+        /// </summary>
+        /// <param name="httpContentHeaders">The request headers collection to add it.</param>
+        /// <param name="headers">The list of headers to add.</param>
+        static void AddHeaders(HttpHeaders httpContentHeaders, IEnumerable<KeyValuePair<string, string>> headers)
+        {
+            foreach (var header in headers)
+            {
+                httpContentHeaders.Add(header.Key, header.Value);
+            }
         }
 
         /// <summary>
