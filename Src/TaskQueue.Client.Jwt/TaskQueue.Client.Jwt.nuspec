@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>TaskQueue.Client</id>
-        <title>TaskQueue Client</title>
+        <id>TaskQueue.Client.Jwt</id>
+        <title>TaskQueue Client JWT Authorization Extensions</title>
         <version>1.0.1</version>
         <authors>TaskQueue</authors>
         <projectUrl>http://taskqueue.io</projectUrl>

@@ -1,39 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace TaskQueue.Client
 {
     public sealed class TaskletBuilder
     {
 // ReSharper disable InconsistentNaming
-        internal const string X_TQ_ContentType = "X-TQ-Content-Type";
-        internal const string X_TQ_Timeout = "X-TQ-Timeout";
-        internal const string X_TQ_Retries = "X-TQ-Retries";
-        internal const string X_TQ_Endpoint = "X-TQ-Endpoint";
+        internal const string XtqContentType = "X-TQ-Content-Type";
+        internal const string XtqTimeout = "X-TQ-Timeout";
+        internal const string XtqRetries = "X-TQ-Retries";
+        internal const string XtqEndpoint = "X-TQ-Endpoint";
+        internal const string XtqAuthorization = "X-TQ-Authorization";
 // ReSharper restore InconsistentNaming
 
         readonly string _content;
-        internal readonly string _contentType;
+        readonly string _contentType;
         readonly Dictionary<string, string> _headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-        ///// <summary>
-        ///// Constructor.
-        ///// </summary>
-        ///// <param name="content">The content to build the Tasklet from.</param>
-        //internal TaskletBuilder(object content)
-        //{
-        //    if (content == null)
-        //    {
-        //        throw new ArgumentNullException("content");
-        //    }
-
-        //    var json = JsonConvert.SerializeObject(content, Formatting.None);
-            
-        //    _content = JObject.Parse(json);
-        //    _contentType = "application/json";
-        //}
 
         /// <summary>
         /// Constructor.
@@ -56,21 +38,6 @@ namespace TaskQueue.Client
             _contentType = contentType;
         }
 
-        ///// <summary>
-        ///// Constructor.
-        ///// </summary>
-        ///// <param name="content">The content to build the Tasklet from.</param>
-        //internal TaskletBuilder(JObject content)
-        //{
-        //    if (content == null)
-        //    {
-        //        throw new ArgumentNullException("content");
-        //    }
-
-        //    _content = content;
-        //    _contentType = "application/json";
-        //}
-
         /// <summary>
         /// Builds the tasklet.
         /// </summary>
@@ -87,7 +54,20 @@ namespace TaskQueue.Client
         /// <returns>The tasklet builder to continue building.</returns>
         public TaskletBuilder ContentType(string mediaType)
         {
-            _headers[X_TQ_ContentType] = mediaType;
+            _headers[XtqContentType] = mediaType;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the authorization to supply to the callback.
+        /// </summary>
+        /// <param name="scheme">The authorization scheme.</param>
+        /// <param name="parameter">The authorization parameter.</param>
+        /// <returns>The tasklet builder to continue building.</returns>
+        public TaskletBuilder Authorization(string scheme, string parameter)
+        {
+            _headers[XtqAuthorization] = String.Format("{0} {1}", scheme, parameter);
 
             return this;
         }
@@ -104,7 +84,7 @@ namespace TaskQueue.Client
                 throw new ArgumentNullException("endpoint");
             }
 
-            _headers[X_TQ_Endpoint] = endpoint;
+            _headers[XtqEndpoint] = endpoint;
 
             return this;
         }

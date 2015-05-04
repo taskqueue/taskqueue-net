@@ -10,7 +10,7 @@
   <Target Name="Build">
 
     <!-- Diagnostics -->
-    <Message Text="Diagnostics:"/>
+    <Message Text="Diagnostics:" />
     <Message Text="Configuration:   $(Configuration)" />
     <Message Text="Root:    	      $(Root)" />
     <Message Text="Version:         $(Version)" />
