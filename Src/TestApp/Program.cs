@@ -24,28 +24,25 @@ namespace TestApp
                 .AuthorizeWithJwt(token)
                 .Build();
 
-            var tasklet2 = Tasklet
-                .From(new SayHelloTask { Name = "Test 202" })
-                .Endpoint(callbackEndpoint)
-                .AuthorizeWithJwt(token)
-                .Build();
+            //var tasklet2 = Tasklet
+            //    .From(new SayHelloTask { Name = "Test 202" })
+            //    .Endpoint(callbackEndpoint)
+            //    .AuthorizeWithJwt(token)
+            //    .Build();
 
-            var tasklet3 = Tasklet
-                .From(new SayHelloTask { Name = "Test 203" })
-                .Endpoint(callbackEndpoint)
-                .AuthorizeWithJwt(token)
-                .Build();
+            //var tasklet3 = Tasklet
+            //    .From(new SayHelloTask { Name = "Test 203" })
+            //    .Endpoint(callbackEndpoint)
+            //    .AuthorizeWithJwt(token)
+            //    .Build();
 
-            ////var endpoint = "http://api.taskqueue.io";
-            //var endpoint = "http://localhost:9001";
-            //using (var client = new TaskQueueClient(endpoint, Guid.NewGuid()))
-            //{
-            //    //while (true)
-            //    //{
-            //        client.EnqueueAsync(tasklet1, tasklet2, tasklet3).Wait();
-            //        //Thread.Sleep(50);
-            //    //}
-            //}
+            var key ="429de7dcc3014f8b9fabae638f41e526";
+
+            var endpoint = "http://api.taskqueue.io";
+            using (var client = new TaskQueueClient(endpoint, key))
+            {
+                client.EnqueueAsync(tasklet1).Wait();
+            }
         }
 
         public class SayHelloTask

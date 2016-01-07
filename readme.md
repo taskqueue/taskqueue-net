@@ -42,9 +42,9 @@ public class Message
 Once your tasklet is ready to send, simply add it to your task queue.
 
 ```csharp
-var apiKey = new Guid("00000000-0000-0000-0000-000000000000");
+var apiKey = "00000000000000000000000000000000";
 
-using (var queue = new TaskQueueClient(new Uri("http://api.taskqueue.io"),apiKey))
+using (var queue = new TaskQueueClient(new Uri("http://api.taskqueue.io"), apiKey))
 {
     queue.EnqueueAsync(tasklet).Wait();
 }

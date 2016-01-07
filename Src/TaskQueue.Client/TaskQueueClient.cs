@@ -18,14 +18,14 @@ namespace TaskQueue.Client
         /// </summary>
         /// <param name="endpoint">The API endpoint.</param>
         /// <param name="apiKey">The API key.</param>
-        public TaskQueueClient(string endpoint, Guid apiKey) : this(new Uri(endpoint), apiKey) { }
+        public TaskQueueClient(string endpoint, string apiKey) : this(new Uri(endpoint), apiKey) { }
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="endpoint">The API endpoint.</param>
         /// <param name="apiKey">The API key.</param>
-        public TaskQueueClient(Uri endpoint, Guid apiKey)
+        public TaskQueueClient(Uri endpoint, string apiKey)
         {
             _endpoint = endpoint;
 
@@ -34,7 +34,7 @@ namespace TaskQueue.Client
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", apiKey.ToString("N").ToUpper());
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", apiKey);
         }
 
         /// <summary>
